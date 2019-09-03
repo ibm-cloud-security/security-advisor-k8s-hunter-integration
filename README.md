@@ -1,7 +1,7 @@
 # security-advisor-k8s-hunter-integration
 
-## Defination of terms:
-![Defination of Terms](https://github.com/ibm-cloud-security/security-advisor-k8s-hunter-integration/blob/master/kube-definitions.png) 
+## Definition of terms:
+![Definition of Terms](https://github.com/ibm-cloud-security/security-advisor-k8s-hunter-integration/blob/master/kube-definitions.png) 
 
 # Prerequisites 
 - Install python (Only if you want to do the cleanup of cards, notes and occurances)
