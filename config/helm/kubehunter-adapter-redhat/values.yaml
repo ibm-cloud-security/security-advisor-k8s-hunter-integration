@@ -1,0 +1,19 @@
+---
+global:
+
+  name: kubehunter-sa-adapter-redhat
+  imageName: kubehunter-sa-adapter
+  tag: "0.0.40"
+  imagePullSecrets: secadv-dev-secret
+  registryNamespace: secadv_dev
+  imagePullPolicy: IfNotPresent
+  clusterNamespace: default
+  cloudEnv: redhat-openshift
+  region: us-south
+  loginEndpoint: "test.cloud.ibm.com"
+
+  saEndpoint: "https://us-south.secadvisor.cloud.ibm.com/findings/v1"
+  # saEndpoint: "https://eu-gb.secadvisor.cloud.ibm.com/findings/v1"
+  
+  tokenUrl: "https://iam.cloud.ibm.com/identity/token"
+  # token_url: "https://iam.test.cloud.ibm.com/identity/token"

@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.global.name }}-configuration
+data:
+  saEndpoint: {{ .Values.global.saEndpoint }}
+  tokenUrl: {{ .Values.global.tokenUrl }}
+  cloudEnv: {{ .Values.global.cloudEnv }}
+  region: {{ .Values.global.region }}
+  loginEndpoint: {{ .Values.global.loginEndpoint }}
