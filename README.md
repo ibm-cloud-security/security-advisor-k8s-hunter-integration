@@ -2,7 +2,6 @@
 
 ## Definition of terms:
 
-Please note that 
 ![Definition of Terms](https://github.com/ibm-cloud-security/security-advisor-k8s-hunter-integration/blob/master/kube-definitions.png) 
 
 # Prerequisites 
