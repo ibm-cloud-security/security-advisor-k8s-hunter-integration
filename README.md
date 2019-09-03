@@ -1,11 +1,14 @@
 # security-advisor-k8s-hunter-integration
 
 ## Definition of terms:
+
+Please note that 
 ![Definition of Terms](https://github.com/ibm-cloud-security/security-advisor-k8s-hunter-integration/blob/master/kube-definitions.png) 
 
 # Prerequisites 
 - Install python (Only if you want to do the cleanup of cards, notes and occurances)
 - Install [Kubernetes Helm (package manager)](https://docs.helm.sh/using_helm/#from-script) v2.9.0 or higher
+- you need to have an IBM Cloud account where you are able to navigate to IBM Cloud Security Advisor Dashboard. Account ID and other account details refered in this document is corresponding to that account
 
 ## public-k8s cloud 
 ### Install steps for public-k8s cloud:
