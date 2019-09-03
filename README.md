@@ -1,7 +1,7 @@
 # security-advisor-k8s-hunter-integration
 
 ## Defination of terms:
-![Defination of Terms](https://github.ibm.com/security-services/security-advisor-project-management/blob/master/kube-definations.png) 
+![Defination of Terms](https://github.ibm.com/ibm-cloud-security/security-advisor-project-management/blob/master/kube-definations.png) 
 
 # Prerequisites 
 - Install python (Only if you want to do the cleanup of cards, notes and occurances)
@@ -113,7 +113,7 @@
 ## Configure cronjob:
 - The cronjobs are scheduled to run every 15 mins, which is configurable. Change the schedule to run the cronjobs at: 
 ```
-https://github.ibm.com/sec-advisor-code-samples/security-advisor-k8s-hunter-integration/blob/master/config/helm/kubehunter-adapter-public/templates/kube-cronjob.yaml#L8
+security-advisor-k8s-hunter-integration/blob/master/config/helm/kubehunter-adapter-public/templates/kube-cronjob.yaml#L8
 ```
 
 ## Troubleshooting
