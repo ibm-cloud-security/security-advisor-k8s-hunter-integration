@@ -9,8 +9,7 @@
 
 ## public-k8s cloud 
 ### Install steps for public-k8s cloud:
-- Get imagePullSecrets from Sunil Singh (This is only required if you are doing dev testing)
-- Clone the repo: `git clone git@github.ibm.com:sec-advisor-code-samples/security-advisor-k8s-hunter-integration.git`
+- Clone this repo
 - `cd security-advisor-k8s-hunter-integration/scripts/public`
 - Inorder to point to security advisor london endpoint do following changes:
   uncomment line#16 and comment line#15 in /config/helm/kubehunter-adapter-public/values.yaml 
@@ -26,7 +25,7 @@
 ```
 
 ### Cleanup setup for public-k8s cloud:
-- Clone the repo: `git clone git@github.ibm.com:sec-advisor-code-samples/security-advisor-k8s-hunter-integration.git`
+- Clone this repo
 - `cd security-advisor-k8s-hunter-integration/scripts/public`
 - Run below automated script to cleanup all in once.
 `./sa_kubehunter_cleanup.sh <account id> <api key> "full path to directory of kube configs>" <cloud-env>`
@@ -45,8 +44,7 @@
 
 ## Redhat Openshift
 ### Install steps for source is public-k8s cloud and target is redhat-openshift cloud:
-- Get imagePullSecrets from Sunil Singh (This is only required if you are doing dev testing)
-- Clone the repo: `git clone git@github.ibm.com:sec-advisor-code-samples/security-advisor-k8s-hunter-integration.git`
+- Clone this repo
 - `cd security-advisor-k8s-hunter-integration/scripts/redhat`
 - Inorder to point to security advisor london endpoint do following changes:
   uncomment line#6 and comment line#15 in /config/helm/kubehunter-adapter/values.yaml 
@@ -62,7 +60,7 @@
 ```
 
 ### Cleanup of setup for source is public-k8s cloud and target is redhat-openshift cloud:
-- Clone the repo: `git clone git@github.ibm.com:sec-advisor-code-samples/security-advisor-k8s-hunter-integration.git`
+- Clone this repo
 - `cd security-advisor-k8s-hunter-integration/scripts/redhat`
 - Run below automated script to cleanup all in once.
 - `./sa_kubehunter_cleanup.sh <account id> <apikey> <target-clustername> <oc-login-api-key> <sa-endpoint>`
@@ -79,8 +77,7 @@
 ```
 
 ### Install steps for source and target as redhat-openshift cloud:
-- Get imagePullSecrets from Sunil Singh (This is only required if you are doing dev testing)
-- Clone the repo: `git clone git@github.ibm.com:sec-advisor-code-samples/security-advisor-k8s-hunter-integration.git`
+- Clone this repo
 - `cd security-advisor-k8s-hunter-integration/scripts/redhat`
 - Inorder to point to security advisor london endpoint do following changes:
   uncomment line#16 and comment line#15 in /config/helm/kubehunter-adapter/values.yaml 
@@ -97,7 +94,7 @@
 
 ### Cleanup of setup for source and target as redhat-openshift:
 
-- Clone the repo: `git clone git@github.ibm.com:sec-advisor-code-samples/security-advisor-k8s-hunter-integration.git`
+- Clone this repo
 - `cd security-advisor-k8s-hunter-integration/scripts/redhat`
 - Run below automated script to cleanup all in once.
 - `./sa_kubehunter_cleanup.sh <account id> <api key> <target-clustername> <oc-login-api-key> <sa-endpoint> <source-server>`
