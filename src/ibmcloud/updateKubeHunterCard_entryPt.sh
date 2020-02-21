@@ -7,8 +7,7 @@
 #******************************************************************************
 
 echo "CLOUD_ENV is $CLOUD_ENV"
-
 while true; do
-    /kubehunter-sa-adapter/$CLOUD_ENV/update_kubehuntercard.sh $1 $2 $3 $4 &
+  /kubebench-sa-adapter/$CLOUD_ENV/update_kubebenchcard.sh $1 $2 $3 $4 &
   sleep 3600
 done

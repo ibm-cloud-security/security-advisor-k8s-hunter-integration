@@ -9,29 +9,11 @@ import string
 import random
 from kubeHunterResultsParser import fetchVulList
 from kubeHunterL1Adaptor import postToSA
+from ibm_cloud_sdk_core.authenticators import BearerTokenAuthenticator, IAMAuthenticator
+from ibm_security_advisor_findings_api_sdk import FindingsApiV1
 
-
-# Change the context according to your service
-
-def obtain_iam_token(api_key, token_url):
-    if not api_key:
-        raise Exception("obtain_uaa_token: missing api key")
-
-    headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',
-    }
-
-    body = 'grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=' + api_key + '&response_type=cloud_iam'
-
-    try:
-        response = requests.post(token_url, data=body, headers=headers)
-        response.raise_for_status()
-    except requests.exceptions.HTTPError as err:
-        logger.exception("An unexpected error was encountered while obtaining IAM token" + str(err))
-        return None
-    if response.status_code == 200 and response.json()['access_token']:
-        return response.json()['access_token']        
+logger = logging.getLogger("adaptor")
+logger.setLevel(logging.INFO)     
 
 def adaptInsightsToOccurence(category,vulnerability,evidence,location,description, account_id , cluster_name):
 	finding_type = ""

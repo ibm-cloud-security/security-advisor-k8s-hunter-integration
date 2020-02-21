@@ -2,18 +2,18 @@
 global:
 
   name: kubehunter-sa-adapter-public
-  imageName: kubehunter-sa-adapter
-  tag: "0.0.42"
-  imagePullSecrets: secadv-dev-secret
-  registryNamespace: secadv_dev
+  imageName: hunter-int
+  tag: "latest"
+  #imagePullSecrets: secadv-dev-secret
+  registryNamespace: gary29198
   imagePullPolicy: IfNotPresent
   clusterNamespace: default
   cloudEnv: ibmcloud
   region: us-south
   loginEndpoint: "test.cloud.ibm.com"  
 
-  saEndpoint: "https://us-south.secadvisor.cloud.ibm.com/findings/v1"
-  # saEndpoint: "https://eu-gb.secadvisor.cloud.ibm.com/findings/v1"
+  saEndpoint: "https://us-south.secadvisor.cloud.ibm.com/findings"
+  # saEndpoint: "https://eu-gb.secadvisor.cloud.ibm.com/findings"
   
   tokenUrl: "https://iam.cloud.ibm.com/identity/token"
   # token_url: "https://iam.test.cloud.ibm.com/identity/token"
