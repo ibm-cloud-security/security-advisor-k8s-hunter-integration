@@ -16,32 +16,33 @@ logger = logging.getLogger("adaptor")
 logger.setLevel(logging.INFO)     
 
 def adaptInsightsToOccurence(category,vulnerability,evidence,location,description, account_id , cluster_name):
-	finding_type = ""
-	provider_id = ""	
-	if category.strip() == "Information Disclosure" :
-		finding_type = "kubehunteribmcloud-information-disclosure"
-		provider_id = "kubeHunterIBMCloudInformationDisclosure"
-	elif category.strip() == "Remote Code Execution" :
-		finding_type = "kubehunteribmcloud-remote-code-execution"
-		provider_id = "kubeHunterIBMCloudRemoteCodeExecutor"		
-	elif category.strip() == "Identity Theft" :
-		finding_type = "kubehunteribmcloud-identity-and-access"
-		provider_id = "kubeHunterIBMCloudIdentityAndAccess"	
-				
-	elif category.strip() == "Unauthenticated Access" :
-		finding_type = "kubehunteribmcloud-identity-and-access"
-		provider_id = "kubeHunterIBMCloudIdentityAndAccess"		
-	elif category.strip() == "Access Risk" :
-		finding_type = "kubehunteribmcloud-identity-and-access"
-		provider_id = "kubeHunterIBMCloudIdentityAndAccess"				
-	elif category.strip() == "Privilege Escalation" :
-		finding_type = "kubehunteribmcloud-identity-and-access"
-		provider_id = "kubeHunterRedhatIdentityAndAccess"	
-	elif category.strip() == "Denial of Service" :
-		finding_type = "kubehunteribmcloud-denial-of-service"
-		provider_id = "kubeHunterIBMCloudDenialofService"
+    finding_type = ""
+    provider_id = ""
+    category = "".join(category.split()).strip()
+    if category == "InformationDisclosure" :
+        finding_type = "kubehunteribmcloud-information-disclosure"
+        provider_id = "kubeHunterIBMCloudInformationDisclosure"
+    elif category == "RemoteCodeExecution" :
+        finding_type = "kubehunteribmcloud-remote-code-execution"
+        provider_id = "kubeHunterIBMCloudRemoteCodeExecutor"		
+    elif category == "IdentityTheft" :
+        finding_type = "kubehunteribmcloud-identity-and-access"
+        provider_id = "kubeHunterIBMCloudIdentityAndAccess"	
+                
+    elif category == "UnauthenticatedAccess" :
+        finding_type = "kubehunteribmcloud-identity-and-access"
+        provider_id = "kubeHunterIBMCloudIdentityAndAccess"		
+    elif category == "AccessRisk" :
+        finding_type = "kubehunteribmcloud-identity-and-access"
+        provider_id = "kubeHunterIBMCloudIdentityAndAccess"				
+    elif category == "PrivilegeEscalation" :
+        finding_type = "kubehunteribmcloud-identity-and-access"
+        provider_id = "kubeHunterRedhatIdentityAndAccess"	
+    elif category == "DenialofService" :
+        finding_type = "kubehunteribmcloud-denial-of-service"
+        provider_id = "kubeHunterIBMCloudDenialofService"
 
-	pay_json = {			
+    pay_json = {			
         "note_name": str(account_id) + "/providers/" + str(provider_id) + "/notes/" + str(finding_type),
         "kind": "FINDING",
         "message": evidence,
@@ -56,11 +57,11 @@ def adaptInsightsToOccurence(category,vulnerability,evidence,location,descriptio
         "finding": {
             "severity": "LOW",
             "next_steps": [{
-			"title": category +": Please check following : \n"+ description +"  "+location
-			}]
+            "title": category +": Please check following : \n"+ description +"  "+location
+            }]
         }
     } 
-	return pay_json
+    return pay_json
     
 
 

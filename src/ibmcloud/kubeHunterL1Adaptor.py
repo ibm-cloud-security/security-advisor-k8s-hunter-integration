@@ -266,7 +266,7 @@ def get_all_kubehunteroccurrences(account_id, token, endpoint):
     return occurrences
 
 
-def get_occurrences(account_id, token, endpoint, url):
+def get_occurrences(account_id, token, endpoint, providers):
     occurrences = []
     try:
         findingsAPI = FindingsApiV1(
@@ -334,7 +334,7 @@ def createOccurences(account_id, token, endpoint, occurrencesJson):
                 finding=occurrence['finding'] if 'finding' in occurrence else None,
                 kpi=occurrence['kpi'] if 'kpi' in occurrence else None
             )
-            if response.status_code == 200:
+            if response.get_status_code() == 200:
                 logger.info("created occurrence: %s" % occurrence['id'])
             else:
                 logger.error("unable to create occurrence: %s" % occurrence['id'])
@@ -353,7 +353,6 @@ def executePointInTimeVulnerabilityOccurenceAdapter(apikey, account_id, endpoint
         delete_occurrences(account_id, token, endpoint, vulnerabilityOccurrences)
     except:
         print("ignoring metadata duplicate errors")
-
     createOccurences(account_id, token, endpoint, vulnerabilitiesReportedByPartner["insights"])
     occurrences = get_all_kubehunteroccurrences(account_id, token, endpoint)
     return occurrences
@@ -364,6 +363,5 @@ def postToSA(args):
     apikey = args["apikey"]
     account_id = args["account"]
     endpoint = args["endpoint"]
-    vulnerabilityOccurrences = executePointInTimeVulnerabilityOccurenceAdapter(apikey, account_id, endpoint,
-                                                                               args["vulnerabilityInsights"])
+    vulnerabilityOccurrences = executePointInTimeVulnerabilityOccurenceAdapter(apikey, account_id, endpoint, args["vulnerabilityInsights"])
     return {'insights': vulnerabilityOccurrences}
