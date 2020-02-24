@@ -5,7 +5,7 @@ RUN apt-get update && \
 RUN apt-get install curl -y
 RUN apt-get update
 RUN apt-get install python3-pip -y
-RUN pip3 install requests ibm_cloud_sdk_core ibm-cloud-security-advisor-findingsapi-sdk
+RUN pip3 install requests ibm_cloud_sdk_core==1.6.2 ibm-cloud-security-advisor-findingsapi-sdk==2.0.0
 
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
 RUN chmod +x ./kubectl
