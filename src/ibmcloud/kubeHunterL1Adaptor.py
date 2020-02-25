@@ -179,14 +179,7 @@ def create_note(account_id, token, endpoint):
         for note in vulnerablity_notes_definition["notes"]:
             response = findingsAPI.create_note(
                 account_id=account_id,
-                provider_id=note['provider_id'],
-                short_description=note['short_description'],
-                long_description=note['long_description'],
-                kind=note['kind'],
-                id=note['id'],
-                reported_by=note['reported_by'],
-                finding=note['finding'] if 'finding' in note else None,
-                card=note['card'] if 'card' in note else None
+                **note
             )
             if response.get_status_code() == 200:
                 logger.info("created note: %s" % note['id'])
@@ -240,9 +233,9 @@ def delete_notes(account_id, token, endpoint, notes):
         findingsAPI.set_service_url(endpoint)
         for note in notes:
             response = findingsAPI.delete_note(
-                account_id=account_id, 
-                provider_id=note['provider_id'], 
-                note_id=note['id']
+                account_id=account_id,  
+                note_id=note['id'],
+                **note
             )
             if response.get_status_code() == 200:
                 logger.info("deleted note: %s" % note['id'])
@@ -299,8 +292,8 @@ def delete_occurrences(account_id, token, endpoint, occurrences):
         for occurrence in occurrences:
             response = findingsAPI.delete_occurrence(
                 account_id=account_id, 
-                provider_id=occurrence['provider_id'], 
-                occurrence_id=occurrence['id']
+                occurrence_id=occurrence['id'],
+                **occurrence
             )
             if response.get_status_code() == 200:
                 logger.info("deleted occurrence: %s" % occurrence['id'])
@@ -325,14 +318,7 @@ def createOccurences(account_id, token, endpoint, occurrencesJson):
         for occurrence in occurrencesJson:
             response = findingsAPI.create_occurrence(
                 account_id=account_id,
-                provider_id=occurrence['provider_id'],
-                note_name=occurrence['note_name'],
-                kind=occurrence['kind'],
-                remediation=occurrence['remediation'],
-                context=occurrence['context'],
-                id=occurrence['id'],
-                finding=occurrence['finding'] if 'finding' in occurrence else None,
-                kpi=occurrence['kpi'] if 'kpi' in occurrence else None
+                **occurrence
             )
             if response.get_status_code() == 200:
                 logger.info("created occurrence: %s" % occurrence['id'])
@@ -347,12 +333,12 @@ def executePointInTimeVulnerabilityOccurenceAdapter(apikey, account_id, endpoint
     try:
         create_note(account_id, token, endpoint)
     except:
-        print("ignoring metadata duplicate errors")
+        logger.exception("ignoring metadata duplicate errors")
     try:
         vulnerabilityOccurrences = get_all_kubehunteroccurrences(account_id, token, endpoint)
         delete_occurrences(account_id, token, endpoint, vulnerabilityOccurrences)
     except:
-        print("ignoring metadata duplicate errors")
+        logger.exception("ignoring metadata duplicate errors")
     createOccurences(account_id, token, endpoint, vulnerabilitiesReportedByPartner["insights"])
     occurrences = get_all_kubehunteroccurrences(account_id, token, endpoint)
     return occurrences

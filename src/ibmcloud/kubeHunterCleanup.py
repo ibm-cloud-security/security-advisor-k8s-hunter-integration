@@ -77,8 +77,8 @@ def delete_notes(account_id, token, endpoint, notes):
         for note in notes:
             response = findingsAPI.delete_note(
                 account_id=account_id, 
-                provider_id=note['provider_id'], 
-                note_id=note['id']
+                note_id=note['id'],
+                **note
             )
             if response.get_status_code() == 200:
                 logger.info("deleted note: %s" % note['id'])
@@ -135,9 +135,9 @@ def delete_occurrences(account_id, token, endpoint, occurrences):
         findingsAPI.set_service_url(endpoint)
         for occurrence in occurrences:
             response = findingsAPI.delete_occurrence(
-                account_id=account_id, 
-                provider_id=occurrence['provider_id'], 
-                occurrence_id=occurrence['id']
+                account_id=account_id,  
+                occurrence_id=occurrence['id'],
+                **occurrence
             )
             if response.get_status_code() == 200:
                 logger.info("deleted occurrence: %s" % occurrence['id'])

@@ -8,54 +8,32 @@ import datetime
 import string
 import random
 from kubeHunterResultsParser import fetchVulList
-from kubeHunterL1Adaptor import postToSA
-
-
-# Change the context according to your service
-
-def obtain_iam_token(api_key, token_url):
-    if not api_key:
-        raise Exception("obtain_uaa_token: missing api key")
-
-    headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',
-    }
-
-    body = 'grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=' + api_key + '&response_type=cloud_iam'
-
-    try:
-        response = requests.post(token_url, data=body, headers=headers)
-        response.raise_for_status()
-    except requests.exceptions.HTTPError as err:
-        logger.exception("An unexpected error was encountered while obtaining IAM token" + str(err))
-        return None
-    if response.status_code == 200 and response.json()['access_token']:
-        return response.json()['access_token']        
+from kubeHunterL1Adaptor import postToSA      
 
 def adaptInsightsToOccurence(category,vulnerability,evidence,location,description, account_id , cluster_name):
 	finding_type = ""
-	provider_id = ""	
-	if category.strip() == "Information Disclosure" :
+	provider_id = ""
+    category = "".join(category.split()).strip()	
+	if category == "Information Disclosure" :
 		finding_type = "kubehunterredhat-information-disclosure"
 		provider_id = "kubeHunterRedhatInformationDisclosure"
-	elif category.strip() == "Remote Code Execution" :
+	elif category == "Remote Code Execution" :
 		finding_type = "kubehunterredhat-remote-code-execution"
 		provider_id = "kubeHunterRedhatRemoteCodeExecutor"		
-	elif category.strip() == "Identity Theft" :
+	elif category == "Identity Theft" :
 		finding_type = "kubehunterredhat-identity-and-access"
 		provider_id = "kubeHunterRedhatIdentityAndAccess"	
 				
-	elif category.strip() == "Unauthenticated Access" :
+	elif category == "Unauthenticated Access" :
 		finding_type = "kubehunterredhat-identity-and-access"
 		provider_id = "kubeHunterRedhatIdentityAndAccess"		
-	elif category.strip() == "Access Risk" :
+	elif category == "Access Risk" :
 		finding_type = "kubehunterredhat-identity-and-access"
 		provider_id = "kubeHunterRedhatIdentityAndAccess"				
-	elif category.strip() == "Privilege Escalation" :
+	elif category == "Privilege Escalation" :
 		finding_type = "kubehunterredhat-identity-and-access"
 		provider_id = "kubeHunterRedhatIdentityAndAccess"	
-	elif category.strip() == "Denial of Service" :
+	elif category == "Denial of Service" :
 		finding_type = "kubehunterredhat-denial-of-service"
 		provider_id = "kubeHunterRedhatDenialofService"
 
