@@ -96,9 +96,13 @@ vulnerablity_notes_definition = {
             },
             "card": {
                 "section": "Container Config Exposures",
+
+                # THIS NEEDS TO BE CHANGED
                 "title": "kube-hunter",
+                # THIS NEEDS TO BE CHANGED
+
+                
                 "subtitle": "IBM Cloud",
-                "context" : {},
                 "finding_note_names": [
                     "providers/kubeHunterIBMCloudInformationDisclosure/notes/kubehunteribmcloud-information-disclosure",
                     "providers/kubeHunterIBMCloudRemoteCodeExecutor/notes/kubehunteribmcloud-remote-code-execution",
