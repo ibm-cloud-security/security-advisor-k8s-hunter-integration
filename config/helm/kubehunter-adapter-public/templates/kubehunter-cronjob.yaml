@@ -25,7 +25,7 @@ spec:
             - name: {{ .Values.global.imagePullSecrets }}
            containers:
            - name: {{ .Values.global.name }}
-             image: us.icr.io/{{ .Values.global.registryNamespace }}/{{ .Values.global.imageName }}:{{ .Values.global.tag | default "dummy" }}
+             image: {{ .Values.global.registryNamespace }}/{{ .Values.global.imageName }}:{{ .Values.global.tag | default "dummy" }}
              command:
                - "/bin/sh"
                - "-c"

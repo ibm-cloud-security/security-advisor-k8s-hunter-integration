@@ -9,57 +9,40 @@ import string
 import random
 from kubeHunterResultsParser import fetchVulList
 from kubeHunterL1Adaptor import postToSA
+from ibm_cloud_sdk_core.authenticators import BearerTokenAuthenticator, IAMAuthenticator
+from ibm_security_advisor_findings_api_sdk import FindingsApiV1
 
-
-# Change the context according to your service
-
-def obtain_iam_token(api_key, token_url):
-    if not api_key:
-        raise Exception("obtain_uaa_token: missing api key")
-
-    headers = {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json',
-    }
-
-    body = 'grant_type=urn%3Aibm%3Aparams%3Aoauth%3Agrant-type%3Aapikey&apikey=' + api_key + '&response_type=cloud_iam'
-
-    try:
-        response = requests.post(token_url, data=body, headers=headers)
-        response.raise_for_status()
-    except requests.exceptions.HTTPError as err:
-        logger.exception("An unexpected error was encountered while obtaining IAM token" + str(err))
-        return None
-    if response.status_code == 200 and response.json()['access_token']:
-        return response.json()['access_token']        
+logger = logging.getLogger("adaptor")
+logger.setLevel(logging.INFO)     
 
 def adaptInsightsToOccurence(category,vulnerability,evidence,location,description, account_id , cluster_name):
-	finding_type = ""
-	provider_id = ""	
-	if category.strip() == "Information Disclosure" :
-		finding_type = "kubehunteribmcloud-information-disclosure"
-		provider_id = "kubeHunterIBMCloudInformationDisclosure"
-	elif category.strip() == "Remote Code Execution" :
-		finding_type = "kubehunteribmcloud-remote-code-execution"
-		provider_id = "kubeHunterIBMCloudRemoteCodeExecutor"		
-	elif category.strip() == "Identity Theft" :
-		finding_type = "kubehunteribmcloud-identity-and-access"
-		provider_id = "kubeHunterIBMCloudIdentityAndAccess"	
-				
-	elif category.strip() == "Unauthenticated Access" :
-		finding_type = "kubehunteribmcloud-identity-and-access"
-		provider_id = "kubeHunterIBMCloudIdentityAndAccess"		
-	elif category.strip() == "Access Risk" :
-		finding_type = "kubehunteribmcloud-identity-and-access"
-		provider_id = "kubeHunterIBMCloudIdentityAndAccess"				
-	elif category.strip() == "Privilege Escalation" :
-		finding_type = "kubehunteribmcloud-identity-and-access"
-		provider_id = "kubeHunterRedhatIdentityAndAccess"	
-	elif category.strip() == "Denial of Service" :
-		finding_type = "kubehunteribmcloud-denial-of-service"
-		provider_id = "kubeHunterIBMCloudDenialofService"
+    finding_type = ""
+    provider_id = ""
+    category = "".join(category.split()).strip()
+    if category == "InformationDisclosure" :
+        finding_type = "kubehunteribmcloud-information-disclosure"
+        provider_id = "kubeHunterIBMCloudInformationDisclosure"
+    elif category == "RemoteCodeExecution" :
+        finding_type = "kubehunteribmcloud-remote-code-execution"
+        provider_id = "kubeHunterIBMCloudRemoteCodeExecutor"		
+    elif category == "IdentityTheft" :
+        finding_type = "kubehunteribmcloud-identity-and-access"
+        provider_id = "kubeHunterIBMCloudIdentityAndAccess"	
+                
+    elif category == "UnauthenticatedAccess" :
+        finding_type = "kubehunteribmcloud-identity-and-access"
+        provider_id = "kubeHunterIBMCloudIdentityAndAccess"		
+    elif category == "AccessRisk" :
+        finding_type = "kubehunteribmcloud-identity-and-access"
+        provider_id = "kubeHunterIBMCloudIdentityAndAccess"				
+    elif category == "PrivilegeEscalation" :
+        finding_type = "kubehunteribmcloud-identity-and-access"
+        provider_id = "kubeHunterRedhatIdentityAndAccess"	
+    elif category == "DenialofService" :
+        finding_type = "kubehunteribmcloud-denial-of-service"
+        provider_id = "kubeHunterIBMCloudDenialofService"
 
-	pay_json = {			
+    pay_json = {			
         "note_name": str(account_id) + "/providers/" + str(provider_id) + "/notes/" + str(finding_type),
         "kind": "FINDING",
         "message": evidence,
@@ -74,11 +57,11 @@ def adaptInsightsToOccurence(category,vulnerability,evidence,location,descriptio
         "finding": {
             "severity": "LOW",
             "next_steps": [{
-			"title": category +": Please check following : \n"+ description +"  "+location
-			}]
+            "title": category +": Please check following : \n"+ description +"  "+location
+            }]
         }
     } 
-	return pay_json
+    return pay_json
     
 
 
