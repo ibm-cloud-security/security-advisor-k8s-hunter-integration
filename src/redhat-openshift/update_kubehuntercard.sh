@@ -1,10 +1,15 @@
+#*******************************************************************************
+# * Licensed Materials - Property of IBM
+# * IBM Bluemix Container Service, 5737-D43
+# * (C) Copyright IBM Corp. 2020 All Rights Reserved.
+# * US Government Users Restricted Rights - Use, duplication or 
+# * disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+#******************************************************************************
 
-set -x
 accountid=$1
 apikey=$2
 clustername=$3
 oc_login_apikey=$4
-echo "CLOUD_ENV is $CLOUD_ENV"
 
 git clone https://github.com/aquasecurity/kube-hunter.git
 cd kube-hunter/
@@ -27,7 +32,8 @@ sleep 20
 echo "starting to prepare kubehunter analysis report"
 kubectl logs -f "$(kubectl get pods |grep kube-hunter-redhat | awk '{ print $1 }')" | sed -ne '/^Vulnerabilities$/{:a' -e 'n;p;ba' -e '}' >> ../vul.txt
 echo "analysis report prepared"
-echo "Uploading report to SA"
+echo "uploading report to SA..."
 
 cd ../kubehunter-sa-adapter/$CLOUD_ENV
-python kubeHunterAdaptor.py $accountid $apikey $clustername $SA_ENDPOINT
+python3 kubeHunterAdaptor.py $accountid $apikey $clustername $SA_ENDPOINT
+echo "uploaded kube-hunter report to SA"
